@@ -20,7 +20,7 @@ class PostRepository
     }
 
     public function getAllPosts() {
-        return Post::all();
+        return Post::whereNull('deleted_at')->get();
     }
 
     public function getPostBySlug(string $slug) {

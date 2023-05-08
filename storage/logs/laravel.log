@@ -2067,3 +2067,36 @@
 #42 C:\\OSPanel\\domains\\localhost\\MyJob\\VueProjects\\Back-end\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\resources\\server.php(16): require_once('C:\\\\OSPanel\\\\doma...')
 #43 {main}
 "} 
+[2023-05-08 03:23:16] local.ERROR: Command "storage:clear" is not defined.
+
+Did you mean one of these?
+    auth:clear-resets
+    cache:clear
+    config:clear
+    event:clear
+    optimize:clear
+    queue:clear
+    route:clear
+    schedule:clear-cache
+    storage:link
+    view:clear {"exception":"[object] (Symfony\\Component\\Console\\Exception\\CommandNotFoundException(code: 0): Command \"storage:clear\" is not defined.
+
+Did you mean one of these?
+    auth:clear-resets
+    cache:clear
+    config:clear
+    event:clear
+    optimize:clear
+    queue:clear
+    route:clear
+    schedule:clear-cache
+    storage:link
+    view:clear at C:\\OSPanel\\domains\\localhost\\MyJob\\VueProjects\\Back-end\\vendor\\symfony\\console\\Application.php:702)
+[stacktrace]
+#0 C:\\OSPanel\\domains\\localhost\\MyJob\\VueProjects\\Back-end\\vendor\\symfony\\console\\Application.php(256): Symfony\\Component\\Console\\Application->find('storage:clear')
+#1 C:\\OSPanel\\domains\\localhost\\MyJob\\VueProjects\\Back-end\\vendor\\symfony\\console\\Application.php(168): Symfony\\Component\\Console\\Application->doRun(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#2 C:\\OSPanel\\domains\\localhost\\MyJob\\VueProjects\\Back-end\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Application.php(102): Symfony\\Component\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#3 C:\\OSPanel\\domains\\localhost\\MyJob\\VueProjects\\Back-end\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(155): Illuminate\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#4 C:\\OSPanel\\domains\\localhost\\MyJob\\VueProjects\\Back-end\\artisan(35): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#5 {main}
+"} 

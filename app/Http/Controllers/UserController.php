@@ -75,19 +75,7 @@ class UserController extends Controller
     {
         try {
             $data_validated = $request->validated();
-            if ($user = $this->user_service->updateUser(Arr::except($data_validated, 'avatar'))) {
-                $url_image = Arr::has($data_validated,
-                    'avatar') ? $data_validated['avatar']->store(Image::DIRECTORY_IMAGES) : null;
-                if ($url_image) {
-                    $image_ctl = new ImageController();
-                    if ($user->avatar) {
-                        $image = $image_ctl->update($user->avatar, $url_image);
-                    } else {
-                        $image = $image_ctl->create($url_image);
-                        $user->avatar = $image->id;
-                        $user->save();
-                    }
-                }
+            if ($user = $this->user_service->updateUser($data_validated)) {
                 return $this->response->success('Update success !');
             }
             return $this->response->error('Not your', Response::HTTP_BAD_REQUEST);
