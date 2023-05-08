@@ -25,7 +25,6 @@ Route::middleware('auth:api')->group(function () {
    Route::prefix('user-actions')->controller(UserController::class)->group(function () {
        Route::post('mark-read-all', 'markReadAll');
        Route::get('notifications', 'getNotifications');
-       Route::post('updateUser', 'updateUser');
        Route::post('update-profile','updateProfile');
    });
 
@@ -35,6 +34,7 @@ Route::middleware('auth:api')->group(function () {
        Route::get('deleteUser', 'deleteUser');
        Route::post('createUser', 'createUser');
        Route::post('delete-multiple-users', 'deleteMultipleUsers');
+       Route::post('update-user', 'updateUser');
    });
 });
 
