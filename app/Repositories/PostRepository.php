@@ -2,13 +2,22 @@
 
 namespace App\Repositories;
 
+use App\Models\Image;
 use App\Models\Post;
+use Illuminate\Support\Facades\App;
 
 class PostRepository
 {
     public function getPost($id) {
-        $post = Post::find($id);
+        $post            = Post::find($id);
+        $post->url_image = $post->url_image();
         return $post;
+    }
+
+    public function postOfUser($user_id) {
+        return Post::where(['user_id' => $user_id, 'deleted_at' => null])
+                   ->orderBy('created_at', 'desc')
+                   ->get();
     }
 
     public function update($id, array $data) {
@@ -24,6 +33,9 @@ class PostRepository
     }
 
     public function getPostBySlug(string $slug) {
-        return Post::where(['slug' => $slug])->first();
+        $post         = Post::where(['slug' => $slug])->first();
+        $post->url    = $post->url_image();
+        $post->author = $post->user()->name;
+        return $post;
     }
 }

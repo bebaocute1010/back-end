@@ -42,12 +42,6 @@ class User extends Authenticatable implements JWTSubject
         $this->attributes['password'] = Hash::make($value);
     }
 
-    public function posts() {
-        return Post::where(['user_id' => $this->id, 'deleted_at' => null])
-            ->orderBy('created_at', 'desc')
-            ->get();
-    }
-
     public function avatar() {
         return $this->avatar ? App::make('url')->to('/') . Image::find($this->avatar)->url : null;
     }
