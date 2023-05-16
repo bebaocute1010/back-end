@@ -21,18 +21,8 @@ class Post extends Model
         'deleted_at' => 'datetime:Y-m-d H:m:s',
     ];
 
-    private  $post_service;
-
-    public  function __construct()  {
-        $this->post_service = new PostService();
-    }
-
-    public function image() {
+    public function url_image() {
         return App::make('url')->to('/') . Image::find($this->image_id)->url;
-    }
-
-    public function getPost(Request $request) {
-        return $this->post_service->getPost($request->id);
     }
 
     public function user() {

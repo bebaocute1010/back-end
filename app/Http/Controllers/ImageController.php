@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Image;
+use App\Services\ImageService;
 use http\Url;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
@@ -11,22 +12,20 @@ use Illuminate\Support\Facades\Storage;
 
 class ImageController extends Controller
 {
-    public function create(string $filename) {
-        $url = Storage::url( $filename);
-        return Image::create(['url' => $url]);
+    private $image_service;
+
+    public function __construct()
+    {
+        $this->image_service = new ImageService();
     }
 
-    public function update($id, string $filename) {
-        $image = Image::find($id);
-        $old_url = $image->url;
-        $url = Storage::url( $filename);
-        $image->url = $url;
-        $image->save();
-        $imagePath = parse_url($old_url, PHP_URL_PATH);
-        $imageFullPath = public_path($imagePath);
-        if (File::exists($imageFullPath)) {
-            File::delete($imageFullPath);
-        }
-        return $image;
+    public function create(string $filename)
+    {
+        return $this->image_service->create($filename);
+    }
+
+    public function update($id, string $filename)
+    {
+        return $this->image_service->update($id, $filename);
     }
 }

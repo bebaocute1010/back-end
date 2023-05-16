@@ -41,7 +41,7 @@ Route::middleware('auth:api')->group(function () {
 Route::middleware('guest')->group(function () {
     Route::controller(AuthController::class)->group(function () {
         Route::post('login', 'login');
-        Route::post('signup', 'signup');
+        Route::post('signup', 'signUp');
     });
 });
 
