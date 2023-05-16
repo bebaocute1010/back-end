@@ -16,28 +16,32 @@ class UserController extends Controller
     private $response;
     private $user_service;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->response     = new Responses();
         $this->user_service = new UserService();
     }
 
-    public function getAdmin() {
+    public function getAdmin()
+    {
         return $this->user_service->getAdmin();
     }
 
-    public function getNotifications(Request $request) {
+    public function getNotifications(Request $request)
+    {
         try {
             $notifications = auth()->user()->notifications->take(7);
             $count         = auth()->user()->unreadNotifications->count();
             return $this->response->successWithData([
-                'notifications' => $notifications, 'count' => $count,
+              'notifications' => $notifications, 'count' => $count,
             ]);
         } catch (\Throwable $exception) {
             return $this->response->exceptionError($exception);
         }
     }
 
-    public function markReadAll() {
+    public function markReadAll()
+    {
         try {
             auth()->user()->unreadNotifications->markAsRead();
             return $this->response->success('Marked read all notifications !');
@@ -46,7 +50,8 @@ class UserController extends Controller
         }
     }
 
-    public function getListUsers() {
+    public function getListUsers()
+    {
         try {
             return $this->response->successWithData($this->user_service->getListUsers());
         } catch (\Throwable $exception) {
@@ -54,7 +59,8 @@ class UserController extends Controller
         }
     }
 
-    public function getUserByID(Request $request) {
+    public function getUserByID(Request $request)
+    {
         try {
             return $this->response->successWithData($this->user_service->getUserByID($request->id));
         } catch (\Throwable $exception) {
@@ -62,30 +68,32 @@ class UserController extends Controller
         }
     }
 
-    public function updateUser(UpdateUserRequest $request) {
+    public function updateUser(UpdateUserRequest $request)
+    {
         try {
             $data_validated = $request->validated();
             if ($user = $this->user_service->updateUser($data_validated)) {
                 return $this->response->success('Update success !');
             }
             return $this->response->error('Not your',
-                Response::HTTP_BAD_REQUEST);
+              Response::HTTP_BAD_REQUEST);
         } catch (\Throwable $exception) {
             return $this->response->exceptionError($exception);
         }
     }
 
-    public function updateProfile(UpdateUserRequest $request) {
+    public function updateProfile(UpdateUserRequest $request)
+    {
         try {
             $data_validated = $request->validated();
             if ($user
-                = $this->user_service->updateUser(Arr::except($data_validated,
-                'avatar'))
+              = $this->user_service->updateUser(Arr::except($data_validated,
+              'avatar'))
             ) {
                 $url_image = Arr::has($data_validated,
-                    'avatar')
-                    ? $data_validated['avatar']->store(Image::DIRECTORY_IMAGES)
-                    : null;
+                  'avatar')
+                  ? $data_validated['avatar']->store(Image::DIRECTORY_IMAGES)
+                  : null;
                 if ($url_image) {
                     $image_ctl = new ImageController();
                     if ($user->avatar) {
@@ -99,13 +107,14 @@ class UserController extends Controller
                 return $this->response->success('Update profile success !');
             }
             return $this->response->error('Not your',
-                Response::HTTP_BAD_REQUEST);
+              Response::HTTP_BAD_REQUEST);
         } catch (\Throwable $exception) {
             return $this->response->exceptionError($exception);
         }
     }
 
-    public function deleteUser(Request $request) {
+    public function deleteUser(Request $request)
+    {
         try {
             $this->user_service->deleteUser($request->id);
             return $this->response->success('Deleted user success !');
@@ -114,7 +123,8 @@ class UserController extends Controller
         }
     }
 
-    public function createUser(CreateUserRequest $request) {
+    public function createUser(CreateUserRequest $request)
+    {
         try {
             $data_validated = $request->validated();
             switch ($data_validated['role']) {
@@ -135,7 +145,8 @@ class UserController extends Controller
         }
     }
 
-    public function deleteMultipleUsers(Request $request) {
+    public function deleteMultipleUsers(Request $request)
+    {
         try {
             foreach ($request->selected as $id) {
                 $this->user_service->deleteUser($id);

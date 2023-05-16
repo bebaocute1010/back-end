@@ -8,19 +8,23 @@ class UserService
 {
     private $user_repository;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->user_repository = new UserRepository();
     }
 
-    public function create(array $data) {
+    public function create(array $data)
+    {
         return $this->user_repository->create($data);
     }
 
-    public function getAdmin() {
+    public function getAdmin()
+    {
         return $this->user_repository->getAdmin();
     }
 
-    public function getListUsers() {
+    public function getListUsers()
+    {
         $users           = $this->user_repository->getAll();
         $index           = 0;
         $users_converted = $users->map(function ($user, $index) {
@@ -36,19 +40,20 @@ class UserService
             }
             $index++;
             return [
-                'id'         => $user->id,
-                'index'      => $index,
-                'name'       => $user->name,
-                'email'      => $user->email,
-                'role'       => $role_text,
-                'created_at' => $user->created_at,
-                'updated_at' => $user->updated_at,
+              'id'         => $user->id,
+              'index'      => $index,
+              'name'       => $user->name,
+              'email'      => $user->email,
+              'role'       => $role_text,
+              'created_at' => $user->created_at,
+              'updated_at' => $user->updated_at,
             ];
         });
         return $users_converted;
     }
 
-    public function getUserByID($id) {
+    public function getUserByID($id)
+    {
         $user = $this->user_repository->getUserByID($id);
         switch ($user->role) {
             case 0:
@@ -64,11 +69,13 @@ class UserService
         return $user;
     }
 
-    public function updateUser(array $data) {
+    public function updateUser(array $data)
+    {
         return $this->user_repository->updateUser($data);
     }
 
-    public function deleteUser($id) {
+    public function deleteUser($id)
+    {
         return $this->user_repository->deleteUser($id);
     }
 }

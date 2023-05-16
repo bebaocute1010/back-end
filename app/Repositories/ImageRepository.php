@@ -8,12 +8,14 @@ use Illuminate\Support\Facades\Storage;
 
 class ImageRepository
 {
-    public function create(string $filename) {
+    public function create(string $filename)
+    {
         $url = Storage::url($filename);
         return Image::create(['url' => $url]);
     }
 
-    public function update($id, string $filename) {
+    public function update($id, string $filename)
+    {
         $image      = Image::find($id);
         $old_url    = $image->url;
         $url        = Storage::url($filename);

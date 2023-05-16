@@ -14,15 +14,18 @@ class ImageController extends Controller
 {
     private $image_service;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->image_service = new ImageService();
     }
 
-    public function create(string $filename) {
+    public function create(string $filename)
+    {
         return $this->image_service->create($filename);
     }
 
-    public function update($id, string $filename) {
+    public function update($id, string $filename)
+    {
         return $this->image_service->update($id, $filename);
     }
 }

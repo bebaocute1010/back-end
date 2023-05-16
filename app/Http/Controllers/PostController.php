@@ -16,13 +16,15 @@ class PostController extends Controller
     private $response;
     private $user_ctl;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->post_service = new PostService();
         $this->response     = new Responses();
         $this->user_ctl     = new UserController();
     }
 
-    public function getPost(Request $request) {
+    public function getPost(Request $request)
+    {
         try {
             $post = $this->post_service->getPost($request->id);
             return $this->response->successWithData($post);
@@ -31,7 +33,8 @@ class PostController extends Controller
         }
     }
 
-    public function update(PostUpdateRequest $request) {
+    public function update(PostUpdateRequest $request)
+    {
         try {
             $data = $request->validated();
             if ($post = $this->post_service->update($data)) {
@@ -44,7 +47,8 @@ class PostController extends Controller
         }
     }
 
-    public function create(PostCreateRequest $request) {
+    public function create(PostCreateRequest $request)
+    {
         try {
             $data_validated = $request->validated();
             $post           = $this->post_service->create($data_validated);
@@ -58,7 +62,8 @@ class PostController extends Controller
         }
     }
 
-    public function delete(Request $request) {
+    public function delete(Request $request)
+    {
         try {
             if ($this->post_service->delete($request->id)) {
                 return $this->response->success('Delete post success !');
@@ -70,7 +75,8 @@ class PostController extends Controller
         }
     }
 
-    public function deleteMultiple(Request $request) {
+    public function deleteMultiple(Request $request)
+    {
         try {
             foreach ($request->selected as $id) {
                 if (!$this->post_service->delete($id)) {
@@ -84,7 +90,8 @@ class PostController extends Controller
         }
     }
 
-    public function postsOfUser(Request $request) {
+    public function postsOfUser(Request $request)
+    {
         try {
             return $this->response->successWithData($this->post_service->postOfUser(auth()->id()));
         } catch (\Throwable $exception) {
@@ -92,7 +99,8 @@ class PostController extends Controller
         }
     }
 
-    public function getAllPostsByGuest(Request $request) {
+    public function getAllPostsByGuest(Request $request)
+    {
         try {
             return $this->response->successWithData($this->post_service->getAllPosts());
         } catch (\Throwable $exception) {
@@ -100,7 +108,8 @@ class PostController extends Controller
         }
     }
 
-    public function getPostBySlug(Request $request) {
+    public function getPostBySlug(Request $request)
+    {
         try {
             return $this->response->successWithData($this->post_service->getPostBySlug($request->slug));
         } catch (\Throwable $exception) {
